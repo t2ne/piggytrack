@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   db:
     build: ./db
@@ -36,12 +38,12 @@ services:
       - ./backend:/app
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      target: runner   
     container_name: piggytrack_frontend
     ports:
       - "3000:3000"
-    volumes:
-      - ./frontend:/app
     stdin_open: true
     tty: true
 

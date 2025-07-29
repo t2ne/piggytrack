@@ -1,27 +1,19 @@
-# Stage 1: Build
+# Stage 1: builder
 FROM node:24-alpine AS builder
 WORKDIR /app
 
-# Só copia o package.json para instalar deps
-COPY package*.json ./
-RUN npm install
+COPY package.json package-lock.json* ./
+RUN npm ci
 
-# Copia o resto e faz build
 COPY . .
 RUN npm run build
 
-# Stage 2: Runtime (só o necessário)
-FROM node:24-alpine
+# Stage 2: runner
+FROM node:24-alpine AS runner
 WORKDIR /app
 
-# Copia só o package.json e instala prod deps
-COPY package*.json ./
-RUN npm install --omit=dev
-
-# Copia o build final do builder
-COPY --from=builder /app/.next .next
-COPY --from=builder /app/public public
-COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/public ./public
 
 EXPOSE 3000
-CMD ["npm", "run", "start"]
+CMD ["node", "server.js"]
