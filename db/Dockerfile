@@ -1,24 +1,28 @@
-# MariaDB Alpine custom
-FROM alpine:3.20
+# Base super leve
+FROM alpine:3.22
 
-# Variáveis de ambiente default
+# Variáveis de ambiente
 ENV MARIADB_ROOT_PASSWORD=root \
     MARIADB_DATABASE=finance \
     MARIADB_USER=finance_user \
     MARIADB_PASSWORD=finance_pass
 
-# Instala mariadb e ferramentas essenciais
+# Instala MariaDB, cliente e dependências mínimas
 RUN apk add --no-cache mariadb mariadb-client bash tzdata \
-    && mkdir -p /run/mysqld \
+    && mkdir -p /run/mysqld /docker-entrypoint-initdb.d \
     && chown -R mysql:mysql /run/mysqld /var/lib/mysql
 
-# Inicializa a base de dados
+# Inicializa o diretório da base de dados
 RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
-# Copia script inicial (se existir)
+# Copia script inicial (opcional)
 COPY init.sql /docker-entrypoint-initdb.d/init.sql
 
+# Define utilizador
+USER mysql
+
+# Expõe a porta
 EXPOSE 3306
 
-USER mysql
-CMD ["mysqld", "--bind-address=0.0.0.0"]
+# Comando principal
+CMD ["mysqld", "--bind-address=0.0.0.0", "--skip-networking=0"]
