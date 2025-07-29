@@ -15,11 +15,11 @@ FROM node:24-alpine AS runner
 WORKDIR /app
 
 COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
 ENV NODE_ENV=production
 
-# Usa utilizador não-root
 USER node
 
 EXPOSE 3000
