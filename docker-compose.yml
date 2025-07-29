@@ -1,25 +1,29 @@
-version: "3.9"
-
 services:
   db:
-    image: mysql:8.0
-    container_name: finance_db
+    image: mariadb:10.11.12-jammy  # Slim e recente
+    container_name: piggytrack_db
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: finance
-      MYSQL_USER: finance_user
-      MYSQL_PASSWORD: finance_pass
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: finance
+      MARIADB_USER: finance_user
+      MARIADB_PASSWORD: finance_pass
     ports:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
 
   backend:
     build: ./backend
-    container_name: finance_backend
+    container_name: piggytrack_backend
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       DB_HOST: db
       DB_PORT: 3306
@@ -33,7 +37,7 @@ services:
 
   frontend:
     build: ./frontend
-    container_name: finance_frontend
+    container_name: piggytrack_frontend
     ports:
       - "3000:3000"
     volumes:
