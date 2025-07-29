@@ -1,4 +1,4 @@
-FROM mariadb:11.4.5-alpine
+FROM yobasystems/alpine-mariadb:11.4.5
 
 ENV MARIADB_ROOT_PASSWORD=root \
     MARIADB_DATABASE=finance \
