@@ -5,7 +5,7 @@ RUN npm install -g pnpm
 
 COPY package.json pnpm-lock.yaml ./
 
-RUN pnpm install --frozen-lockfile --prefer-offline
+RUN pnpm install --frozen-lockfile --prefer-offline && pnpm store prune
 
 COPY . .
 
@@ -18,6 +18,9 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/public ./public
 
 ENV NODE_ENV=production
+
+# Usa utilizador não-root
+USER node
 
 EXPOSE 3000
 
