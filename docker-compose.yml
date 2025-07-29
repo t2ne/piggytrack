@@ -1,6 +1,6 @@
 services:
   db:
-    image: mariadb:10.11.12-jammy  # Slim e recente
+    build: ./db
     container_name: piggytrack_db
     environment:
       MARIADB_ROOT_PASSWORD: root
