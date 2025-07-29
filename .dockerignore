@@ -1,0 +1,40 @@
+# Ignora Git e configs locais
+.git
+.gitignore
+.vscode
+.idea
+*.iml
+.DS_Store
+Thumbs.db
+
+# Ignora dependências e caches locais
+node_modules
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.pid
+
+# Ignora arquivos de build locais
+dist
+build
+out
+.cache
+coverage
+
+# Ignora ambientes locais
+.env
+.env.*
+*.local
+
+# Ignora testes e mocks
+__tests__/
+test/
+tests/
+cypress/
+.storybook/
+.vitest/
+
+# Ignora volumes de Docker e arquivos temporários
+db_data

@@ -2,7 +2,9 @@ version: "3.9"
 
 services:
   db:
-    build: ./db
+    build:
+      context: ./db
+      dockerfile: Dockerfile
     container_name: piggytrack_db
     environment:
       MARIADB_ROOT_PASSWORD: root
@@ -13,7 +15,6 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
       interval: 10s
@@ -21,7 +22,9 @@ services:
       start_period: 30s
 
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: piggytrack_backend
     depends_on:
       db:
@@ -34,13 +37,12 @@ services:
       DB_NAME: finance
     ports:
       - "8000:8000"
-    volumes:
-      - ./backend:/app
 
   frontend:
     build:
       context: ./frontend
-      target: runner   
+      dockerfile: Dockerfile
+      target: runner
     container_name: piggytrack_frontend
     ports:
       - "3000:3000"

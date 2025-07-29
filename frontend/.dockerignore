@@ -1,11 +1,41 @@
+# Ignora node_modules local (vai ser instalado no container)
 node_modules
+
+# Ignora pastas de build/output do Next.js
 .next
-dist
 out
+dist
 build
 .cache
 coverage
+
+# Ignora configs e ambientes locais
+.env
+.env.* 
+*.local
+
+# Ignora ficheiros temporários e do sistema
+.DS_Store
+Thumbs.db
+*.log
+*.pid
+*.swp
+
+# Ignora ficheiros de testes e mocks
+__tests__/
+test/
+tests/
+*.spec.js
+*.spec.ts
+*.test.js
+*.test.ts
+cypress/
+.storybook/
+.vitest/
+
+# Ignora IDEs e Git
 .vscode
 .idea
-.DS_Store
-.env
+*.iml
+.git
+.gitignore

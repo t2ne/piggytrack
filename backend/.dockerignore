@@ -1,0 +1,38 @@
+# Ignora tudo por default
+**
+
+# Mantém apenas os ficheiros essenciais
+!Dockerfile
+!requirements.txt
+!app.py
+!*.py
+!.dockerignore
+
+# Ignora ficheiros Python desnecessários
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignora virtualenvs
+env/
+.venv/
+venv/
+ENV/
+
+# Ignora ficheiros temporários e configs locais
+*.log
+*.sqlite
+*.db
+*.bak
+*.swp
+
+# Ignora ficheiros de testes locais
+tests/
+*.test.py
+
+# Ignora ficheiros Git e IDEs
+.git/
+.gitignore
+.vscode/
+.idea/
+*.iml

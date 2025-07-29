@@ -1,0 +1,7 @@
+# Ignorar tudo por default
+**
+
+# Permitir apenas estes ficheiros
+!Dockerfile
+!init.sql
+!.dockerignore
