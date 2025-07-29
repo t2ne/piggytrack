@@ -1,19 +1,24 @@
-# Stage 1: builder
 FROM node:24-alpine AS builder
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
-RUN npm ci
+RUN npm install -g pnpm
+
+COPY package.json pnpm-lock.yaml ./
+
+RUN pnpm install --frozen-lockfile --prefer-offline
 
 COPY . .
-RUN npm run build
 
-# Stage 2: runner
+RUN pnpm run build
+
 FROM node:24-alpine AS runner
 WORKDIR /app
 
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/public ./public
 
+ENV NODE_ENV=production
+
 EXPOSE 3000
+
 CMD ["node", "server.js"]
