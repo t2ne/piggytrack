@@ -9,5 +9,3 @@ ENV MARIADB_ROOT_PASSWORD=root \
 COPY init.sql /docker-entrypoint-initdb.d/init.sql
 
 EXPOSE 3306
-
-CMD ["mariadbd", "--bind-address=0.0.0.0"]
