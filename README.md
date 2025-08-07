@@ -1,25 +1,59 @@
-# PiggyTrack
+# PiggyTrack 🐷📊
 
-Projeto simples para gestão de despesas com backend em Flask, base de dados MariaDB e frontend em Next.js.
+A simple expense management app with:
 
-## Como usar
+- 🖥️ **Frontend**: Next.js  
+- 🐍 **Backend**: Flask  
+- 🛢️ **Database**: MariaDB  
 
-### Requisitos
+---
+
+## 🚀 How to Use
+
+### Requirements
 
 - Docker  
 - Docker Compose
 
-### Como levantar
+---
 
-1. Clona o repositório  
-2. Executa `docker-compose up --build`  
-3. Acede a:  
-   - Frontend: [http://localhost:3000](http://localhost:3000)  
-   - Backend: [http://localhost:8000](http://localhost:8000)  
-   - Base de dados MariaDB na porta 3306 (user e pass no `.env` ou Docker Compose)
+### 🔧 Setup Instructions
 
-### Notas
+1. Clone the repository:
+```bash
+git clone https://github.com/t2ne/piggytrack.git
+```
 
-- A base de dados inicializa com um script SQL (`init.sql`) no container.  
-- O backend tem uma rota de teste `/stats` que devolve dados dummy.  
-- O frontend liga-se ao backend e mostra os dados.
+2. Navigate to the project folder:
+```bash
+cd piggytrack
+```
+
+3. Build and start the containers:
+```bash
+docker-compose up --build
+```
+
+---
+
+### 🌐 Access
+
+- **Frontend**: [http://localhost:3000](http://localhost:3000)  
+- **Backend API**: [http://localhost:8000](http://localhost:8000)  
+- **MariaDB**: Running on port `3306`  
+  - Credentials are defined in the `.env` file or directly in the `docker-compose.yml`
+
+---
+
+### 📝 Notes
+
+- The database container runs an init script (`init.sql`) to pre-fill the database.
+- The backend exposes a test route at `/stats` that returns dummy data.
+- The frontend connects to the backend and displays the received data.
+
+---
+
+## 🙋‍♂️ Author
+
+[@t2ne](https://github.com/t2ne)
+
